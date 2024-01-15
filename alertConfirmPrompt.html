@@ -1,0 +1,44 @@
+<h1>Alert, Confirm, Prompt</h1>
+
+
+<script>
+/*
+EStos métodos son del objeto window que es exclusivo del
+navegador, es decir no está disponible en nodeJS.
+Alert: Permite dar alertas al usuario.
+*/
+//window.alert("Esto es un alerta.");
+/*
+La confirmación tiene un botón de aceptar y de cancelar. El botón
+de aceptar valida a true y el de cancelar a false.
+*/
+//window.confirm("Esto es una confirmación");
+/*
+El método prompt permite que el usuario de un valor.
+*/
+//window.prompt("Esto es un prompt y permite al usuario ingresar un valor:");
+/*
+No es necesario escribir window, con escribir alert, confirm y prompt
+es suficiente para invocarlos. Para almacenarlos se guardan
+en variables:
+*/
+let alerta = alert("Esto es un alerta."),
+    confirmacion = confirm("Esto es una confirmación"),
+    aviso = prompt("Esto es un aviso y permite al usuario ingresar un valor:");
+
+console.log(alert);
+console.log(confirmacion);
+console.log(aviso);
+/*
+Si se da a cancelar (despues de escribir algo) en el prompt 
+se declara la variable como null.
+
+*/
+
+(function(d, w, c) {
+    console.log("Mi segunda IIFE");
+    console.log(d);
+    console.log(w);
+    c.log("Es un console.log")
+})(document, window, console);
+</script>

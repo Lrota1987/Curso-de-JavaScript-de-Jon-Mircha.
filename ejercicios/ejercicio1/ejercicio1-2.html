@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Ejercicio 1.2</h1>
+    <script>
+      /*5) Programa una función que invierta las palabras de una cadena de texto, pe. miFuncion("Hola Mundo") devolverá "odnuM aloH".
+        6) Programa una función para contar el número de veces que se repite una palabra en un texto largo, pe. miFuncion("hola mundo adios mundo", "mundo") devolverá 2.
+        7) Programa una función que valide si una palabra o frase dada, es un palíndromo (que se lee igual en un sentido que en otro), pe. mifuncion("Salas") devolverá true.
+        8) Programa una función que elimine cierto patrón de caracteres de un texto dado, pe. miFuncion("xyz1, xyz2, xyz3, xyz4 y xyz5", "xyz") devolverá  "1, 2, 3, 4 y 5.
+        */
+       //5
+       const invertirTxt = () => {
+        let cadena = window.prompt('Introduzca un texto a invertir.');
+        !cadena?window.alert("No ha introducido ningún texto"):alert(cadena.split("").reverse().join(""));
+       }
+       //invertirTxt();
+       //6
+       const contarPalabras = () => {
+        let cadena = prompt('Introduzca un texto:');
+        let palabra = prompt('Introduzca una palabra a buscar');
+        let contador = 0;
+        if (!cadena || !palabra) {
+            return "No ha iontroducido los datos requeridos";
+        }
+        let repeticiones = 0;
+        if (!cadena.includes(palabra)) {
+            return "No existe la apalabra a buscar en la cadena.";
+        }
+        else {
+            let array1 = cadena.split(" ");
+            for (item of array1) {
+                if (item === palabra) {
+                    contador++;
+                }
+            }
+            return contador;
+        }
+       }
+       //console.log(contarPalabras());
+       console.log("----------------");
+       //7
+       const isPalindromo = () => {
+        let cadena = prompt("Introduzca una palabra:");
+        cadena = cadena.split(" ").join("");
+        cadena = cadena.toLowerCase();
+        let cadena2 = cadena.split("").reverse().join("");
+        console.log(cadena2);
+        !cadena?console.warn("No ha introducido nada"):cadena!==cadena2?console.log("No es palindromo"):console.log("Es palíndromo");
+       }
+       //isPalindromo();
+       //8
+       const deletePatron = (text, patron) => {
+        return text.replace(new RegExp(patron, "ig"), "");
+       }
+       console.log(deletePatron("abc1, abc2, abc, abc3", "ab"));
+
+       /*
+       9) Programa una función que obtenga un numero aleatorio entre 501 y 600.
+10) Programa una función que reciba un número y evalúe si es capicúa o no (que se lee igual en un sentido que en otro), pe. miFuncion(2002) devolverá true.
+11) Programa una función que calcule el factorial de un número (El factorial de un entero positivo n, se define como el producto de todos los números enteros positivos desde 1 hasta n), pe. miFuncion(5) devolverá 120.
+*/
+//9
+const numAleatorio = () => Math.random() * (600-501)+501;
+
+console.log(numAleatorio());
+//10
+const capicua = () => {
+    let cadena = prompt("Introduzca un número");
+    if (isNaN(cadena) || !cadena) {
+        console.warn("No ha introducido un número");
+    }
+    else {
+        let cadena2 = cadena.split("").reverse().join("");
+        cadena===cadena2?window.alert("El número es capicua"):window.alert("El número NO es capicua");
+    }
+}
+//capicua();
+//11
+const factorial = (num) => {
+    let factorial = 1;
+    if (isNaN(num) || !num) {
+        console.warn("No ha introducido un número");
+    }
+    else {
+        for (let i=1 ; i<=num ; i++) {
+            factorial = factorial * i;
+        }
+        return factorial;
+    }
+}
+console.log(factorial(5));
+/*
+12) Programa una función que determine si un número es primo (aquel que solo es divisible por sí mismo y 1) o no, pe. miFuncion(7) devolverá true.
+13) Programa una función que determine si un número es par o impar, pe. miFuncion(29) devolverá Impar.
+14) Programa una función para convertir grados Celsius a Fahrenheit y viceversa, pe. miFuncion(0,"C") devolverá 32°F.
+*/
+//12
+const esPrimo = (num) => {
+    if (isNaN(num) || !num) {
+        console.warn("No ha introducido un número");
+    }
+    else if (num<=0) {
+        console.warn("No ha introducido un número natural (por encima de 0)")
+    }
+    else {
+        if (num===1) {
+            return false;
+        }
+        for (let i=2 ; i<num ; i++) {
+            if (num%i===0) {
+                return false;
+            }
+        }
+        return true;
+    }
+}
+console.log(esPrimo("hola"));
+console.log(esPrimo(7));
+console.log(esPrimo(16));
+console.log(esPrimo(-1));
+console.log("----------------");
+//13
+const esPar = (num) => num%2===0?"Es par":"Es impar";
+console.log(esPar(6));
+console.log(esPar(17));
+console.log(esPar(25));
+console.log("----------------");
+//14
+const convertidorTemp = (grados = 0, sistema = undefined) => isNaN(grados)?"No ha introducido un número para la temperatura":sistema!=="F"&&sistema!=="C"?"No ha introducido un valor adecuado":sistema==="F"?(grados-32)*(5/9)+" ºC":(grados*9/5)+32+" ºF";
+    
+
+console.log(convertidorTemp(0, "C"));
+console.log(convertidorTemp(100, "F"));
+console.log(convertidorTemp(50, "F"));
+console.log("----------------");
+/*
+15) Programa una función para convertir números de base binaria a decimal y viceversa, pe. miFuncion(100,2) devolverá 4 base 10.
+16) Programa una función que devuelva el monto final después de aplicar un descuento a una cantidad dada, pe. miFuncion(1000, 20) devolverá 800.
+17) Programa una función que dada una fecha válida determine cuantos años han pasado hasta el día de hoy, pe. miFuncion(new Date(1984,4,23)) devolverá 35 años (en 2020).
+*/
+//15
+const convBase = (num, base) => {
+    if (base !== 2 && base !== 10) {
+        return "La base introducida no es correcta";
+    }
+    else {
+        if (base === 2) {
+            return parseInt(num, base);
+        }
+        else {
+            let almacenador = Array();
+            while (num!==0) {
+                let residuo = parseInt(num%2);
+                num = Math.floor(num/2);
+                almacenador.push(residuo);
+            }
+            return almacenador.reverse();
+        }
+    }
+}
+console.log(convBase(10, 10));
+console.log(convBase(1001, 2));
+console.log("----------------");
+//16
+const montoFinal = (montoI, desc) => {
+    if (desc<0 || desc>100) {
+        return console.warn("El descuento no puede superior a 100% o inferior a 0%");
+    }
+    else {
+        desc = (100 - desc)/100;
+        montoF = montoI*desc;
+        return montoF;
+    }
+}
+console.log(montoFinal(1000, 20));
+console.log(montoFinal(1000, 102));
+console.log("----------------");
+//17
+const calcAnnos = (dia, mes, anno) => {
+    try {
+        var fecha = Date.parse(anno, mes, dia);
+        var fechaAct = Date.parse(new Date());
+    }
+    catch {
+        return "La fecha introducida no es correcta";
+    }
+    let difFechas = fechaAct - fecha;
+    if (difFechas <= 0) {
+        return "No puede definir una fecha futura";
+    }
+    else {
+        difAnnos=Math.floor(difFechas/(1000*60*60*24*365));
+        return difAnnos+" años";
+    }
+    
+}
+console.log(calcAnnos(20, 12, 2022));
+console.log("----------------");
+/*
+18) Programa una función que dada una cadena de texto cuente el número de vocales y consonantes, pe. miFuncion("Hola Mundo") devuelva Vocales: 4, Consonantes: 5.
+19) Programa una función que valide que un texto sea un nombre válido, pe. miFuncion("Jonathan MirCha") devolverá verdadero.
+20) Programa una función que valide que un texto sea un email válido, pe. miFuncion("jonmircha@gmail.com") devolverá verdadero.
+*/
+//18
+const numVocCons = (text) => {
+    let arrayVocales=["a", "e", "i", "o", "u"];
+    let vocales=0;
+    let consonantes=0;
+    text = text.split(" ").join("").toLowerCase();
+    for (item of text) {
+        if (arrayVocales.includes(item)) {
+            vocales++;
+        }
+        else {
+            consonantes++;
+        }
+    }
+    return `El numero de vocales en el texto es ${vocales}, y el numero de consonantes es ${consonantes}`;
+}
+console.log(numVocCons("Hola mundo que tal"));
+console.log("----------------");
+//19
+const nombreVal = (nombre) => {
+    let regex = new RegExp("^[a-zA-Z ]+$");
+    return regex.test(nombre)?"Es un nombre válido":"No es un nombre válido";
+}
+console.log(nombreVal("Luciano Romero"));
+console.log(nombreVal("Luc1ano, R0mero"));
+console.log("----------------");
+//20
+const emailVal = (email) => {
+    let regex = new RegExp(/^(([^<>()\[\]\.,;:\s@\”]+(\.[^<>()\[\]\.,;:\s@\”]+)*)|(\”.+\”))@(([^<>()[\]\.,;:\s@\”]+\.)+[^<>()[\]\.,;:\s@\”]{2,})$/);
+    return regex.test(email)?"Es un email válido":"No es un email válido";
+}
+console.log(emailVal("lucianoromero@ucm.es"));
+console.log(emailVal("luci!anoro:mero@gmail.es"));
+console.log(emailVal("lucianoromero@ucm.e"));
+console.log(emailVal("lucianoromero0ucm.es"));
+console.log("----------------");
+/*
+
+21) Programa una función que dado un array numérico devuelve otro array con los números elevados al cuadrado, pe. mi_funcion([1, 4, 5]) devolverá [1, 16, 25].
+22) Programa una función que dado un array devuelva el número mas alto y el más bajo de dicho array, pe. miFuncion([1, 4, 5, 99, -60]) devolverá [99, -60].
+23) Programa una función que dado un array de números devuelva un objeto con 2 arreglos en el primero almacena los números pares y en el segundo los impares, pe. miFuncion([1,2,3,4,5,6,7,8,9,0]) devolverá {pares: [2,4,6,8,0], impares: [1,3,5,7,9]}.
+*/
+//21
+function arrayCuad (arr) {
+    let arr2 = Array();
+    for (item of arr) {
+        item = Math.pow(item, 2);
+        arr2.push(item);
+    }
+    return arr2;
+}
+console.log(arrayCuad([2,3,5]));
+console.log("----------------");
+//22
+const masAltoBajo = () => {
+    let continua = true;
+    let arr = Array();
+    while (continua) {
+        numero = prompt("Introduzca un número, para finalizar, no introduzca nada y presione enter.");
+        if (numero === "") {
+            continua = false;
+        }
+        else {
+            arr.push(numero);
+        }
+    }
+    if (arr.length !== 0) {
+        let max = Math.max(... arr);
+        let min = Math.min(... arr);
+        window.alert(`El número más alto es ${max}, y el número más bajo es ${min}`);
+    }
+    else {
+        window.alert(`No ha introducido ningún número`);
+    }
+
+}
+//masAltoBajo();
+//23
+const numParesImpares = (array) => {
+    let ParImpares = {
+        par:[],
+        impar:[]
+    }
+    for (item of array) {
+        if (item%2===0) {
+            ParImpares.par.push(item);
+        }
+        else {
+            ParImpares.impar.push(item);
+        }
+    }
+    return `Los números pares son ${ParImpares.par} y los impares son ${ParImpares.impar}`;
+}
+console.log(numParesImpares([2,45,32,1,7,98,43,22,24,57]));
+console.log("----------------");
+/*
+24) Programa una función que dado un arreglo de números devuelva un objeto con dos arreglos, el primero tendrá los numeros ordenados en forma ascendente y el segundo de forma descendiente, pe. miFuncion([7, 5,7,8,6]) devolverá { asc: [5,6,7,7,8], desc: [8,7,7,6,5] }.
+25) Programa una función que dado un arreglo de elementos, elimine los duplicados, pe. miFuncion(["x", 10, "x", 2, "10", 10, true, true]) devolverá ["x", 10, 2, "10", true].
+26) Programa una función que dado un arreglo de números obtenga el promedio, pe. promedio([9,8,7,6,5,4,3,2,1,0]) devolverá 4.5.
+*/
+//24
+const ascDesc = (array) => {
+    let ObjOrden = {
+        asc:array.map((elem) => elem).sort((a,b) => a-b),
+        desc:array.map((elem) => elem).sort((a,b) => b-a)
+    };
+
+    return `El array ordenado  ascendente: ${ObjOrden.asc} y el objeto ordenado descendente: ${ObjOrden.desc}`;
+}
+console.log(ascDesc([22,4,12,65,3,89,18,33,21,12]));
+console.log("----------------");
+//25
+const deleteDup = (array) => [...new Set(array)];
+
+console.log(deleteDup([2,4,4,2,1,6,9,8]));
+console.log("----------------");
+//26
+const prom = (array) => array.reduce((a,b) => a + b)/array.length;
+
+console.log(prom([5,1,4]));
+
+    </script>
+</body>
+</html>

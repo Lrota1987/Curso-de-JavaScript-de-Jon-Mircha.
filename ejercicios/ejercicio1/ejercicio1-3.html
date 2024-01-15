@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+<script>
+        /*
+27 Programa una clase llamada Pelicula.
+
+La clase recibirá un objeto al momento de instanciarse con los siguentes datos: id de la película en IMDB, titulo, director, año de estreno, país o países de origen, géneros y calificación en IMBD.
+  - Todos los datos del objeto son obligatorios.
+  - Valida que el id IMDB tenga 9 caracteres, los primeros 2 sean letras y los 
+     7 restantes números.
+  - Valida que el título no rebase los 100 caracteres.
+  - Valida que el director no rebase los 50 caracteres.
+  - Valida que el año de estreno sea un número entero de 4 dígitos.
+  - Valida que el país o paises sea introducidos en forma de arreglo.
+  - Valida que los géneros sean introducidos en forma de arreglo.
+  - Valida que los géneros introducidos esten dentro de los géneros 
+     aceptados*.
+  - Crea un método estático que devuelva los géneros aceptados*.
+  - Valida que la calificación sea un número entre 0 y 10 pudiendo ser 
+    decimal de una posición.
+  - Crea un método que devuelva toda la ficha técnica de la película.
+  - Apartir de un arreglo con la información de 3 películas genera 3 
+    instancias de la clase de forma automatizada e imprime la ficha técnica 
+    de cada película.
+*/
+class Pelicula {
+/*
+Se pasan los parametros en forma de objeto desestructurado.
+*/
+    constructor({id, titulo, director, estreno, paises, generos, califIMDB}) {
+        //reg = new RegExp("");
+        this.id = id;
+        this.titulo = titulo;
+        this.director = director;
+        this.estreno = estreno;
+        this.paises = paises;
+        this.generos = generos;
+        this.califIMDB = califIMDB;
+
+        this.validarIMDB(id);
+        this.validarTitulo(titulo);
+        this.validarDirector(director);
+        this.validarEstreno(estreno);
+        this.validarPais(paises);
+        this.validarGeneros(generos);
+        this.validarCalificacion(califIMDB);
+    }
+
+    static get listaGeneros() {
+      return ["Action", "Adult", "Adventure", "Animation", "Biography", "Comedy", "Crime", "Documentary", "Drama", "Family", "Fantasy", "Film Noir", "Game-Show", "History", "Horror", "Musical", "Music", "Mystery", "News", "Reality-TV", "Romance", "Sci-Fi", "Short", "Sport", "Talk-Show", "Thriller", "War", "Western"];
+
+    }
+
+    static generosAceptados() {
+      return console.info(`Los generos aceptados son: ${Pelicula.listaGeneros.join(", ")}`);
+    }
+
+    validarCadena(prop, valor) {
+      if (!valor) return console.error(`${prop} "${valor}" está vacio`);
+
+      if (typeof(valor)!== "string") return console.error(`${prop} "${valor}" ingresado NO es una cadena de texto`);
+
+      return true;
+    }
+
+    validarNumero(prop, valor) {
+      if (!valor) return console.error(`${prop} "${valor}" está vacio`);
+
+      if (typeof(valor)!== "number") return console.error(`${prop} "${valor}" ingresado NO es un número`);
+
+      return true;
+    }
+
+    validarArreglo(prop, valor) {
+      if (!valor) return console.error(`${prop} "${valor}" está vacio`);
+
+      if (!(valor instanceof Array)) return console.error(`${prop} "${valor}" ingresado NO es un arreglo`);
+
+      if (valor.length === 0) return console.error(`${prop} "${valor}" no tiene datos`);
+
+      for (let cadena of valor) {
+        if (typeof(cadena) !== "string") {
+          return console.error(`El valor "${cadena}" ingresado NO es una cadena`);
+        }
+      }
+
+      return true;
+    }
+
+    validarLongCadena(prop, valor, long) {
+      if (valor.length > long) return console.error(`${prop} "${valor}" excede el número de caracteres permitidos ${long}`);
+
+      return true;
+    }
+
+    validarIMDB(id) {
+      if (this.validarCadena("id", id)) {
+        if(!(/^([a-z]){2}([0-9]{7})$/.test(id))) {
+          return console.error(`IMDB id "${id}" no es válido, debe tener 9 caracteres, los 2 primeros letras minúsculas, los 7 restantes números.`);
+        }
+
+      }
+    }
+
+    validarTitulo(titulo) {
+      if (this.validarCadena("Titulo", titulo)) {
+        this.validarLongCadena("Titulo", titulo, 100);
+
+      }
+    }
+
+    validarDirector(director) {
+      if (this.validarCadena("Director", director)) {
+        this.validarLongCadena("Director", director, 50);
+
+      }
+    }
+
+    validarEstreno (estreno) {
+      if (this.validarNumero("Estreno", estreno)) {
+        if (!(/^([0-9]){4}$/.test(estreno))) {
+          return console.error(`Año de estreno "${estreno}" no es válido, debe tener 4 dígitos.`);
+        }
+      }
+    }
+
+    validarPais (pais) {
+      this.validarArreglo("País", pais);
+    }
+
+    validarGeneros (generos) {
+      if (this.validarArreglo("Género", generos)) {
+        for (let genero of generos) {
+          if (!Pelicula.listaGeneros.includes(genero)) {
+            console.error(`"${genero}" no está en la lista de géneros aceptados.`)
+            Pelicula.generosAceptados();
+          }
+        }
+      }
+    }
+
+    validarCalificacion (calif) {
+      if (this.validarNumero("Calificación", calif)) {
+        return (calif<0 || calif>10)?console.error("La calificación tiene que ser entre 0 y 10"):this.califIMDB = calif.toFixed(1);
+      }
+    }
+
+    fichaTecnica() {
+      console.info(`Ficha técnica:\nTítulo:"${this.titulo}"\nDirector: "${this.director}"\nAño: "${this.estreno}"\nPaís: "${this.paises.join("-")}"\nGéneros: "${this.generos.join(", ")}"\nCalificación: "${this.califIMDB}"\nIMDB id: "${this.id}"`);
+    }
+}
+
+//Pelicula.generosAceptados();
+const prueba = [
+  {
+  id:"tt2342345",
+  titulo:"hola",
+  director:"francisco",
+  estreno:1213,
+  paises:["España", "Francia"],
+  generos:["Comedy", "Sport"],
+  califIMDB:7.8
+  },
+  {
+  id:"tt2345455",
+  titulo:"adios",
+  director:"pepe",
+  estreno:2008,
+  paises:["UK", "USA", "North Korea"],
+  generos:["Comedy", "Sport", "Adult"],
+  califIMDB:9.33
+  },
+];
+
+
+prueba.forEach((el) => new Pelicula(el).fichaTecnica());
+
+
+
+</script>
+</body>
+</html>

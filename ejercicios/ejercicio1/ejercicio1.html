@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Ejercicio 1</h1>
+    <script>
+        /*
+        1) Programa una función que cuente el número de caracteres de una cadena de texto, pe. miFuncion("Hola Mundo") devolverá 10.
+        2) Programa una función que te devuelva el texto recortado según el número de caracteres indicados, pe. miFuncion("Hola Mundo", 4) devolverá "Hola".
+        3) Programa una función que dada una String te devuelva un Array de textos separados por cierto caracter, pe. miFuncion('hola que tal', ' ') devolverá ['hola', 'que', 'tal'].
+        4) Programa una función que repita un texto X veces, pe. miFuncion('Hola Mundo', 3) devolverá Hola Mundo Hola Mundo Hola Mundo.
+        */
+        //1
+        const contarCaract = (texto) => isNaN(texto)?texto.length:texto.toString().length;
+        const numCaract = (texto) => texto===undefined?"No ha introducido nada":`El número de caracteres introducido es ${contarCaract(texto)}`; 
+        console.log(numCaract(454));
+        console.log(numCaract("hola"));
+        console.log(numCaract());
+        console.log("----------------");
+        //2
+        function recortarTxt(texto, indice = undefined) {
+            let recortar = function (texto) {
+                let arrayTxt = texto.split('');
+                texto="";
+                for (let i=0 ; i<indice ; i++) {
+                    texto=texto+arrayTxt[i];
+                }
+                return texto;
+     
+            };
+            if (!isNaN(texto)) {
+                    texto = texto.toString();
+                    return recortar(texto);
+                }
+                else {
+                    return recortar(texto);
+                }
+        };
+
+        console.log(recortarTxt("Hola Mundo", 6));
+        console.log(recortarTxt(45858, 2));
+        console.log("----------------");
+        //3
+        //En este caso es lógico suponer que solo funcionará con cadenas de texto.
+        function arrayTextos (texto, caracter) {
+            let textoArray = "";
+            let arrayFinal = Array();
+            for ( let i=0 ; i<texto.length ; i++) {
+                if (texto[i] === caracter) {
+                    arrayFinal.push(textoArray);
+                    textoArray="";
+                }
+                else {
+                    textoArray=textoArray+texto[i];
+                    if (i===texto.length-1 && texto[i] !== caracter) {
+                        arrayFinal.push(textoArray);
+                    }
+                }
+            }
+            return arrayFinal;
+        };
+        console.log(arrayTextos ("Hola soy Luciano, me gusta Javascript", " "));
+        console.log(arrayTextos ("Mi mama me mima mucho", "m"));
+        console.log("----------------");
+        //4
+        function repetirTxt (texto, num) {
+            let nuevoTxt = "";
+            if (num<=0) {
+                nuevoTxt = texto;
+            }
+            for (let i=0 ; i<num ; i++) {
+                i!==num-1?nuevoTxt=nuevoTxt+texto+" ":nuevoTxt=nuevoTxt+texto;
+            }
+            return nuevoTxt;
+        }
+        console.log(repetirTxt("Hola mundo", -2));
+    </script>
+</body>
+</html>
